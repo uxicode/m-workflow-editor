@@ -1,0 +1,54 @@
+@use 'variables' as *;
+@use 'reset';
+
+// ── CSS Custom Properties (Theme Tokens) ───────────────────────
+:root {
+  --font-sans: #{$font-family-sans};
+  --font-mono: #{$font-family-mono};
+
+  --toolbar-height: #{$toolbar-height};
+  --divider-width: #{$divider-width};
+}
+
+[data-theme='light'] {
+  --color-bg: #{$color-bg-light};
+  --color-surface: #{$color-surface-light};
+  --color-surface-hover: #{$color-surface-hover-light};
+  --color-border: #{$color-border-light};
+  --color-text-primary: #{$color-text-primary-light};
+  --color-text-secondary: #{$color-text-secondary-light};
+  --color-accent: #{$color-accent};
+  --color-accent-hover: #{$color-accent-hover};
+  --color-accent-subtle: #{$color-accent-subtle-light};
+  --color-error: #{$color-error};
+  --color-error-bg: #{$color-error-bg-light};
+}
+
+[data-theme='dark'] {
+  --color-bg: #{$color-bg-dark};
+  --color-surface: #{$color-surface-dark};
+  --color-surface-hover: #{$color-surface-hover-dark};
+  --color-border: #{$color-border-dark};
+  --color-text-primary: #{$color-text-primary-dark};
+  --color-text-secondary: #{$color-text-secondary-dark};
+  --color-accent: #{$color-accent};
+  --color-accent-hover: #{$color-accent-hover};
+  --color-accent-subtle: #{$color-accent-subtle-dark};
+  --color-error: #{$color-error};
+  --color-error-bg: #{$color-error-bg-dark};
+}
+
+// ── Scrollbar global ───────────────────────────────────────────
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}

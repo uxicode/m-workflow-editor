@@ -15,6 +15,8 @@
       </button>
     </div>
 
+    <DiagramTemplates />
+
     <div ref="editorContainer" class="editor-body" />
 
     <transition name="fade">
@@ -40,6 +42,7 @@ import { syntaxHighlighting, defaultHighlightStyle, bracketMatching, foldGutter 
 import { oneDark } from '@codemirror/theme-one-dark'
 import { useDebounceFn } from '@vueuse/core'
 import { useEditorStore } from '@/stores/editor'
+import DiagramTemplates from './DiagramTemplates.vue'
 
 const store = useEditorStore()
 

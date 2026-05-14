@@ -273,31 +273,31 @@ export const DIAGRAM_TEMPLATES: DiagramTemplate[] = [
     label: 'Sankey',
     icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 5h6v14H2zM16 9h6v6h-6z"/><path d="M8 8c4 0 4 4 8 4M8 16c4 0 4-4 8-4"/></svg>`,
     code: `sankey-beta
-    수입,생활비,40
-    수입,저축,25
-    수입,투자,20
-    수입,여가,15
-    생활비,식비,18
-    생활비,주거비,15
-    생활비,교통비,7
-    저축,적금,15
-    저축,비상금,10
-    투자,주식,12
-    투자,부동산,8`,
+Income,Living,40
+Income,Saving,25
+Income,Investment,20
+Income,Leisure,15
+Living,Food,18
+Living,Housing,15
+Living,Transport,7
+Saving,Deposit,15
+Saving,Emergency,10
+Investment,Stocks,12
+Investment,RealEstate,8`,
   },
   {
     id: 'architecture',
     label: 'Architecture',
     icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="7" height="7" rx="1"/><rect x="15" y="3" width="7" height="7" rx="1"/><rect x="2" y="14" width="7" height="7" rx="1"/><rect x="15" y="14" width="7" height="7" rx="1"/><path d="M9 6.5h6M9 17.5h6M5.5 10v4M18.5 10v4"/></svg>`,
     code: `architecture-beta
-    group api[API 서버]
-    group db[데이터베이스]
+    group api[API Server]
+    group db[Database]
 
-    service client(internet)[클라이언트]
+    service client(internet)[Client]
     service gateway(server)[API Gateway] in api
-    service auth(server)[인증 서비스] in api
-    service core(server)[핵심 서비스] in api
-    service cache(disk)[Redis 캐시] in db
+    service auth(server)[Auth Service] in api
+    service core(server)[Core Service] in api
+    service cache(disk)[Redis Cache] in db
     service rdb(database)[PostgreSQL] in db
 
     client:R --> L:gateway

@@ -60,15 +60,24 @@ export function useZoom(
     const svgEl = targetRef.value.querySelector('svg')
     if (!svgEl) return
 
-    // SVG 자연 크기: width/height 속성 또는 viewBox에서 읽기
-    const svgW =
-      parseFloat(svgEl.getAttribute('width') || '0') ||
-      (svgEl as SVGSVGElement).viewBox?.baseVal?.width ||
-      0
-    const svgH =
-      parseFloat(svgEl.getAttribute('height') || '0') ||
-      (svgEl as SVGSVGElement).viewBox?.baseVal?.height ||
-      0
+    // 1순위: width/height 속성 (숫자 값)
+    let svgW = parseFloat(svgEl.getAttribute('width') || '0')
+    let svgH = parseFloat(svgEl.getAttribute('height') || '0')
+
+    // 2순위: viewBox
+    if (!svgW || !svgH) {
+      const vb = (svgEl as SVGSVGElement).viewBox?.baseVal
+      svgW = vb?.width || 0
+      svgH = vb?.height || 0
+    }
+
+    // 3순위: 실제 렌더 크기 측정 (timeline·mindmap 등 width 미설정 타입)
+    if (!svgW || !svgH) {
+      applyTransform(1, 0, 0)
+      const rect = svgEl.getBoundingClientRect()
+      svgW = rect.width
+      svgH = rect.height
+    }
 
     const cw = containerRef.value.clientWidth
     const ch = containerRef.value.clientHeight
@@ -76,7 +85,7 @@ export function useZoom(
     if (!svgW || !svgH || !cw || !ch) return
 
     const padding = 40
-    const newScale = Math.min((cw - padding * 2) / svgW, (ch - padding * 2) / svgH, 1)
+    const newScale = Math.min((cw - padding * 2) / svgW, (ch - padding * 2) / svgH)
     const newTx = (cw - svgW * newScale) / 2
     const newTy = (ch - svgH * newScale) / 2
 

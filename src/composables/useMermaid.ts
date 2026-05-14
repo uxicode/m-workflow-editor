@@ -57,11 +57,26 @@ export function useMermaid(
       if (containerRef.value) {
         containerRef.value.innerHTML = svg
 
-        // SVG 크기를 유지하되 inline 렌더링을 block으로 정렬
         const svgEl = containerRef.value.querySelector('svg')
         if (svgEl) {
           svgEl.style.display = 'block'
           svgEl.style.maxWidth = 'none'
+
+          // width/height 속성이 없거나 %일 때 getBBox로 명시적 크기 부여
+          const wAttr = svgEl.getAttribute('width') || ''
+          const hAttr = svgEl.getAttribute('height') || ''
+          const hasNumericW = !isNaN(parseFloat(wAttr)) && !wAttr.includes('%')
+          const hasNumericH = !isNaN(parseFloat(hAttr)) && !hAttr.includes('%')
+
+          if (!hasNumericW || !hasNumericH) {
+            try {
+              const bbox = (svgEl as SVGSVGElement).getBBox()
+              if (bbox.width > 0 && bbox.height > 0) {
+                svgEl.setAttribute('width', String(Math.ceil(bbox.width + 32)))
+                svgEl.setAttribute('height', String(Math.ceil(bbox.height + 32)))
+              }
+            } catch (_) { /* headless 환경에서 무시 */ }
+          }
         }
 
         await nextTick()

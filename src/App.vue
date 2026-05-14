@@ -30,11 +30,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useEditorStore } from '@/stores/editor'
+import { useHistoryAutosave } from '@/composables/useHistoryAutosave'
 import AppToolbar from '@/components/toolbar/AppToolbar.vue'
 import MermaidEditor from '@/components/editor/MermaidEditor.vue'
 import MermaidPreview from '@/components/preview/MermaidPreview.vue'
 
 const store = useEditorStore()
+useHistoryAutosave()
 const previewRef = ref<InstanceType<typeof MermaidPreview> | null>(null)
 
 const isDragging = ref(false)

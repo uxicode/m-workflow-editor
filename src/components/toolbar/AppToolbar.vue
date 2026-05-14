@@ -15,7 +15,7 @@
         <select
           :value="store.mermaidTheme"
           class="theme-select"
-          @change="onMermaidThemeChange"
+          @change="onMermaidThemeChange" 
         >
           <option v-for="opt in mermaidThemeOptions" :key="opt.value" :value="opt.value">
             {{ opt.label }}

@@ -1,5 +1,5 @@
 <template>
-  <div class="templates-bar">
+  <div class="templates-bar" ref="barRef" @wheel.prevent="onWheel">
     <button
       v-for="item in DIAGRAM_TEMPLATES"
       :key="item.id"
@@ -15,12 +15,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useEditorStore } from '@/stores/editor'
 import { DIAGRAM_TEMPLATES } from '@/constants/diagramTemplates'
 import type { DiagramTemplate } from '@/constants/diagramTemplates'
 
 const store = useEditorStore()
+const barRef = ref<HTMLDivElement | null>(null)
 
 const activeId = computed(() => {
   const code = store.code.trimStart()
@@ -34,6 +35,11 @@ const activeId = computed(() => {
 
 function apply(template: DiagramTemplate) {
   store.setCode(template.code)
+}
+
+function onWheel(event: WheelEvent) {
+  if (!barRef.value) return
+  barRef.value.scrollLeft += event.deltaY || event.deltaX
 }
 </script>
 
